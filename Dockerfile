@@ -1,4 +1,9 @@
 FROM  quay.io/operator-framework/operator-sdk:v1.37
-RUN mkdir /operator; \
+ADD helm /usr/local/bin
+RUN chmod +x /usr/local/bin/helm; \
+    helm repo add bitnami https://charts.bitnami.com/bitnami; \
+    mkdir /operator; \
     cd /operator; \
-    operator-sdk init --plugins=helm --domain=sinopec.com --group=pcitc --helm-chart=nginx --helm-chart-repo=https://charts.bitnami.com/bitnami
+    helm pull bitnami/nginx; \
+    ls; \
+    operator-sdk init --plugins=helm --domain=sinopec.com --group=pcitc --helm-chart=./*.tgz
