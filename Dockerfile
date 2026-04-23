@@ -16,8 +16,8 @@ RUN dnf install -y gcc-toolset-13 git cmake llvm-toolset patch zlib-devel python
 
 ENV OPENSSL_NO_VENDOR=1
 
-ENV RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
-ENV RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+# ENV RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+# ENV RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 # Rust 工具链安装（与官方完全一致）
 ARG RUST_VERSION=1.91.1
 ARG RUSTUP_SHA256=6c30b75a75b28a96fd913a037c8581b580080b6ee9b8169a3c0feb1af7fe8caf
