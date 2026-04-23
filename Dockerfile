@@ -19,12 +19,11 @@ ENV OPENSSL_NO_VENDOR=1
 ENV RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
 ENV RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 # Rust 工具链安装（与官方完全一致）
-#ARG RUST_VERSION=1.91.1
-#ARG RUSTUP_SHA256=6c30b75a75b28a96fd913a037c8581b580080b6ee9b8169a3c0feb1af7fe8caf
-#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/rustup.sh \
-#    && echo "${RUSTUP_SHA256}  /tmp/rustup.sh" | sha256sum -c - \
-#    && bash /tmp/rustup.sh -y --default-toolchain ${RUST_VERSION}
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable
+ARG RUST_VERSION=1.91.1
+ARG RUSTUP_SHA256=6c30b75a75b28a96fd913a037c8581b580080b6ee9b8169a3c0feb1af7fe8caf
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/rustup.sh \
+    && echo "${RUSTUP_SHA256}  /tmp/rustup.sh" | sha256sum -c - \
+    && bash /tmp/rustup.sh -y --default-toolchain ${RUST_VERSION}
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN rustup target add x86_64-unknown-linux-gnu
@@ -38,10 +37,10 @@ ARG SURREALDB_VERSION=v3.0.5
 RUN git clone --depth 1 --branch ${SURREALDB_VERSION} https://github.com/surrealdb/surrealdb /surrealdb
 
 WORKDIR /surrealdb
-RUN sed -i 's/^channel[[:space:]]*=.*/channel = "stable"/' rust-toolchain.toml
-RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' src/main.rs
-RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' surrealdb/src/lib.rs
-RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' surrealdb/core/src/lib.rs
+# RUN sed -i 's/^channel[[:space:]]*=.*/channel = "stable"/' rust-toolchain.toml
+# RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' src/main.rs
+# RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' surrealdb/src/lib.rs
+# RUN sed -i 's|#!\[recursion_limit = "[0-9]*"\]|#![recursion_limit = "512"]|' surrealdb/core/src/lib.rs
 
 # 激活 gcc-toolset-13 并编译（首次构建耗时约 30~60 分钟，属正常现象）
 SHELL ["/bin/bash", "-c"]
