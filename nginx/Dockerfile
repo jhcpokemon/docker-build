@@ -62,7 +62,7 @@ RUN set -eux; \
     --with-http_v2_module; \
     make; \
     make install;
-FROM ubuntu:22.04-arm64 as runner
+FROM ubuntu:22.04 as runner
 COPY --from=builder /usr/sbin/nginx /usr/sbin/
 COPY --from=builder /etc/nginx /etc/nginx
 ENV NGINX_VERSION=1.30.2
