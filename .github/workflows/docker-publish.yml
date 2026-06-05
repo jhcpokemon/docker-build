@@ -12,6 +12,10 @@ on:
         description: '目录'     
         required: true
         default: '.'
+      platforms:
+        description: '架构'
+        required: true
+        default: 'linux/amd64'
   push:
     branches: [ "main" ]
     # Publish semver tags as releases.
@@ -81,6 +85,7 @@ jobs:
         with:
           context: ${{ github.event.inputs.dir }}
           push: ${{ github.event_name != 'pull_request' }}
+          platforms: ${{ github.event.inputs.platforms }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
