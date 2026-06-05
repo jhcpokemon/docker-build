@@ -68,7 +68,7 @@ ENV NGINX_VERSION=1.30.2
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 ENV PS1='[\u@\h \W]\$'
 ENV TZ=Asia/Shanghai
-ADD psutil-5.9.8.tar.gz /
+COPY psutil-5.9.8.tar.gz /
 RUN set -eux; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl wget telnet net-tools iputils-ping dnsutils fontconfig ca-certificates p11-kit tzdata locales python2.7 python2-dev gcc; \
