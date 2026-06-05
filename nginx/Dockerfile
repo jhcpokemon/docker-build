@@ -1,11 +1,11 @@
 FROM ubuntu:22.04 as builder
 WORKDIR /tmp
-ADD nginx-sticky-module-ng.tar.gz /tmp/
-ADD nginx_upstream_check_module-0.4.0.tar.gz /tmp/
-ADD openssl-1.0.2k.tar.gz /tmp/
-ADD pcre-8.45.tar.gz /tmp/
-ADD zlib-1.2.11.tar.gz /tmp/
-ADD nginx-1.30.2.tar.gz /tmp/
+COPY nginx-sticky-module-ng.tar.gz /tmp/
+COPY nginx_upstream_check_module-0.4.0.tar.gz /tmp/
+COPY openssl-1.0.2k.tar.gz /tmp/
+COPY pcre-8.45.tar.gz /tmp/
+COPY zlib-1.2.11.tar.gz /tmp/
+COPY nginx-1.30.2.tar.gz /tmp/
 RUN set -eux; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget gcc make libssl-dev zlib1g-dev libgd-dev libgeoip-dev libpcre2-dev libpcre3-dev g++; \
@@ -15,7 +15,6 @@ RUN set -eux; \
     tar xzf pcre-8.45.tar.gz; \
     tar xzf zlib-1.2.11.tar.gz; \
     tar xzf nginx-1.30.2.tar.gz; \
-    ls /tmp/; \
     cd /tmp/nginx-1.30.2; \
     ./configure \
     --with-openssl-opt="no-asm" \
