@@ -6,9 +6,7 @@ ADD openssl-1.0.2k.tar.gz /tmp/
 ADD pcre-8.45.tar.gz /tmp/
 ADD zlib-1.2.11.tar.gz /tmp/
 ADD nginx-1.30.2.tar.gz /tmp/
-RUN ls /tmp/
 RUN set -eux; \
-    sed -i 's@//.*ports.ubuntu.com@//mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget gcc make libssl-dev zlib1g-dev libgd-dev libgeoip-dev libpcre2-dev libpcre3-dev g++; \
     tar xzf nginx-sticky-module-ng.tar.gz; \
@@ -17,6 +15,7 @@ RUN set -eux; \
     tar xzf pcre-8.45.tar.gz; \
     tar xzf zlib-1.2.11.tar.gz; \
     tar xzf nginx-1.30.2.tar.gz; \
+    ls /tmp/; \
     cd /tmp/nginx-1.30.2; \
     ./configure \
     --with-openssl-opt="no-asm" \
@@ -72,7 +71,6 @@ ENV PS1='[\u@\h \W]\$'
 ENV TZ=Asia/Shanghai
 ADD psutil-5.9.8.tar.gz /
 RUN set -eux; \
-    sed -i 's@//.*ports.ubuntu.com@//mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl wget telnet net-tools iputils-ping dnsutils fontconfig ca-certificates p11-kit tzdata locales python2.7 python2-dev gcc; \
     ln -s /usr/bin/python2.7 /usr/bin/python; \
