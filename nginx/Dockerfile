@@ -6,6 +6,7 @@ ADD openssl-1.0.2k.tar.gz /tmp/
 ADD pcre-8.45.tar.gz /tmp/
 ADD zlib-1.2.11.tar.gz /tmp/
 ADD nginx-1.30.2.tar.gz /tmp/
+RUN ls /tmp/
 RUN set -eux; \
     sed -i 's@//.*ports.ubuntu.com@//mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list; \
     apt-get update; \
