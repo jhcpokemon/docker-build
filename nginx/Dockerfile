@@ -5,7 +5,7 @@ COPY nginx_upstream_check_module-0.4.0.tar.gz /tmp/
 COPY openssl-1.0.2k.tar.gz /tmp/
 COPY pcre-8.45.tar.gz /tmp/
 COPY zlib-1.2.11.tar.gz /tmp/
-COPY nginx-1.30.2.tar.gz /tmp/
+COPY nginx-1.30.4.tar.gz /tmp/
 RUN set -eux; \
     apt-get update; \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends wget gcc make libssl-dev zlib1g-dev libgd-dev libgeoip-dev libpcre2-dev libpcre3-dev g++; \
@@ -14,8 +14,8 @@ RUN set -eux; \
     tar xzf openssl-1.0.2k.tar.gz; \
     tar xzf pcre-8.45.tar.gz; \
     tar xzf zlib-1.2.11.tar.gz; \
-    tar xzf nginx-1.30.2.tar.gz; \
-    cd /tmp/nginx-1.30.2; \
+    tar xzf nginx-1.30.4.tar.gz; \
+    cd /tmp/nginx-1.30.4; \
     ./configure \
     --with-openssl-opt="no-asm" \
     --prefix=/etc/nginx \
@@ -64,7 +64,7 @@ RUN set -eux; \
 FROM ubuntu:22.04 as runner
 COPY --from=builder /usr/sbin/nginx /usr/sbin/
 COPY --from=builder /etc/nginx /etc/nginx
-ENV NGINX_VERSION=1.30.2
+ENV NGINX_VERSION=1.30.4
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 ENV PS1='[\u@\h \W]\$'
 ENV TZ=Asia/Shanghai
